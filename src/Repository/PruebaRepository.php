@@ -23,9 +23,29 @@ class PruebaRepository extends ServiceEntityRepository
         parent::__construct($registry, Prueba::class);
     }
 
-    public function consulta($u ,$p){
+    public function consulta($nombre,$clave){
 
-        return $u." algo ".$p;
+        $qb = $this->createQueryBuilder('p')
+        ->where('p.nombre = :nombre and p.clave = :clave')
+        ->setParameter('nombre', $nombre)
+        ->setParameter('clave', $clave);
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
+
+    public function control($nombre,$clave)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p
+            FROM App\Entity\Prueba p
+            WHERE p.nombre = :nombre and p.clave = :clave' 
+        )->setParameter('nombre', $nombre)->setParameter('clave', $clave);
+
+        return $query->getResult();
     }
 
     // /**

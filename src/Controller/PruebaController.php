@@ -42,14 +42,44 @@ class PruebaController extends AbstractController
         $user =$request->request->get("user");
         $pass =$request->request->get("pass");
 
-        if($user == "hola")
-            $msj = "COOOOORREC TA!";
+
+        //$em = $this->getDoctrine()->getManager();
+        //$msj = $em->getRepository('App\Entity\Prueba')->control($user);
+
+        $repository = $this->getDoctrine()->getRepository('App\Entity\Prueba');
+
+        // or find by name and price
+        $usuario = $repository->findOneBy([
+            'nombre' => $user,
+            'clave' => $pass,
+        ]);
+
+        if($usuario <> null)
+            $msj = 'Acceso correcto';
         else
-        $msj = "so bad";
+            $msj = 'usuario o contraseña incorrectos';
+
+        return $this->render('prueba/result.html.twig', [
+            'controller_name' => 'PruebaController', 'msj' => $msj
+            ]);
+    }
+
+        /**
+     * @Route("/nada2", name="nada2")
+     */
+    public function nada2(Request $request)
+    {
+
+        $user =$request->request->get("user");
+        $pass =$request->request->get("pass");
 
         $em = $this->getDoctrine()->getManager();
-        $msj = $em->getRepository('App\Entity\Prueba')->consulta($user,$pass);
+        $usuario = $em->getRepository('App\Entity\Prueba')->consulta($user,$pass);
 
+        if(count($usuario) <> 0)
+            $msj = 'Acceso correcto';
+        else
+            $msj = 'usuario o contraseña incorrectos';
 
         return $this->render('prueba/result.html.twig', [
             'controller_name' => 'PruebaController', 'msj' => $msj
