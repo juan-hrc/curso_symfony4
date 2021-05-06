@@ -9,18 +9,13 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ dato }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/curso_symfony4/src/Controller/LoginController.php'|file_link(0) }}">src/Controller/LoginController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/curso_symfony4/templates/login/index.html.twig'|file_link(0) }}">templates/login/index.html.twig</a></code></li>
-    </ul>
-
-    <form action="./control" method="post">
-        <input type="text" name="algo">
-        <br> <input type="submit" value="aceptar">
-    </form>
+    <h1>Login</h1>
+<form action="./verificar" method="post">
+    Usuario <input type="text" name="user"><br>
+    Password <input type="password" name="pass"><br>
+    <input type="submit" value="Aceptar">
+</form> 
+{{msj}}
 
 </div>
 {% endblock %}

@@ -23,6 +23,8 @@ class PruebaRepository extends ServiceEntityRepository
         parent::__construct($registry, Prueba::class);
     }
 
+
+    
     public function consulta($nombre,$clave){
 
         $qb = $this->createQueryBuilder('p')
@@ -35,7 +37,9 @@ class PruebaRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
-    public function control($nombre,$clave)
+
+
+    public function consulta_sql($nombre,$clave)
     {
         $entityManager = $this->getEntityManager();
 
